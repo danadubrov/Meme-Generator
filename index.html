@@ -16,21 +16,29 @@
             <canvas id="my-canvas" height="500" width="500"></canvas>
         </div>
         <input type="text" name="meme-text" oninput="onChangeTxt()" />
+        <button onclick="onFontSize(4)">A+</button>
+        <button onclick="onFontSize(-4)">A-</button>
+        <select onchange="onFontFamily(this.value)">
+            <option value="IMPACT">IMPACT</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Arial Black">Arial Black</option>
+        </select>
+        <button onclick="onMoveLine(-1)">up</button>
+        <button onclick="onMoveLine(1)">down</button>
+        <button onclick="onSetAlignment('right')">L</button>
+        <button onclick="onSetAlignment('center')">C</button>
+        <button onclick="onSetAlignment('left')">R</button>
+        <button onclick="onSwitchLine()">Switch Line</button>
+        <button onclick="onAddLine()">Add line</button>
     </section>
     <section class="gallery">
         <h2>Gallery</h2>
         <div class="grid-container">
-            <div class="img1" onclick="onSelectImg(1)">
-                <img src="img/1.jpg" alt="">
+            <div onclick="onSelectImg('img1')">
+                <img class = "img1" src="imgs/img1.jpg" alt="">
             </div>
-            <div class="img2" onclick="onSelectImg(2)">
-                <img src="img/2.jpg" alt="">
-            </div>
-            <div class="img3">
-                <img src="img/3.jpg" alt="">
-            </div>
-            <div class="img4">
-                <img src="img/4.jpg" alt="">
+            <div onclick="onSelectImg('img2')">
+                <img class = "img2" src="imgs/img2.jpg" alt="">
             </div>
         </div>
     </section>
