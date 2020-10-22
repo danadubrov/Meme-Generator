@@ -92,6 +92,20 @@ function addLine() {
     gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
+function deleteLine() {
+    if (gMeme.lines.length === 1) {
+        gMeme.lines[0].txt = '';
+        return;
+    }
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    console.log(gMeme.lines);
+    gMeme.selectedLineIdx = 0;
+}
+
+function changeColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
+
 function createImgs() {
     for (var i = 1; i <= gImgNumber; i++) {
         gImgs.push(createImg(i));

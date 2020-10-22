@@ -9,38 +9,68 @@
 </head>
 
 <body onload="onInit()">
-    <h1>Meme Generator</h1>
-    <h2>Editor</h2>
-    <section class="etidor">
-        <div class="canvas-container">
-            <canvas id="my-canvas" height="500" width="500"></canvas>
-        </div>
-        <input type="text" name="meme-text" oninput="onChangeTxt()" />
-        <button onclick="onFontSize(4)">A+</button>
-        <button onclick="onFontSize(-4)">A-</button>
-        <select onchange="onFontFamily(this.value)">
-            <option value="IMPACT">IMPACT</option>
-            <option value="Comic Sans MS">Comic Sans MS</option>
-            <option value="Arial Black">Arial Black</option>
-        </select>
-        <button onclick="onMoveLine(-1)">up</button>
-        <button onclick="onMoveLine(1)">down</button>
-        <button onclick="onSetAlignment('right')">L</button>
-        <button onclick="onSetAlignment('center')">C</button>
-        <button onclick="onSetAlignment('left')">R</button>
-        <button onclick="onSwitchLine()">Switch Line</button>
-        <button onclick="onAddLine()">Add line</button>
-    </section>
-    <section class="gallery">
-        <h2>Gallery</h2>
-        <div class="grid-container">
-            <div onclick="onSelectImg('img1')">
-                <img class = "img1" src="imgs/img1.jpg" alt="">
+    <section class="page-containter flex">
+        <header>
+            <section class="header-container flex">
+                <div class="logo">
+                    <img src="imgs/logo2.png" alt="">
+                </div>
+                <nav>
+                    <ul class="menu flex clean-list">
+                        <li onclick="showGallery()">Gallery</li>
+                        <li>About</li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+        <section class="editor" style="display: none">
+            <div class="canvas-container flex">
+                <canvas id="my-canvas" height="500" width="500"></canvas>
             </div>
-            <div onclick="onSelectImg('img2')">
-                <img class = "img2" src="imgs/img2.jpg" alt="">
+            <section class="editor-container flex" >
+                <section class="title flex">
+                    <h2>Edit Text Lines</h2>
+                    <section class="icons">
+                        <img src="./imgs/icons/switch.png" onclick="onSwitchLine()">
+                        <img src="./imgs/icons/add.png" onclick="onAddLine()">
+                        <img src="./imgs/icons/delete.png" onclick="onDeleteLine()">
+                        <!-- <button onclick="onSwitchLine()">Switch Line</button>
+                    <button onclick="onAddLine()">Add line</button>
+                    <button onclick="onDeleteLine()">Delete line</button> -->
+                    </section>
+                </section>
+                <section class="control-box flex">
+                    <section class="buttons flex">
+                        <select onchange="onFontFamily(this.value)">
+                            <option value="IMPACT">Impact</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Arial Black">Arial Black</option>
+                        </select>
+                        <img src="./imgs/icons/left.png" onclick="onSetAlignment('right')">
+                        <img src="./imgs/icons/center.png" onclick="onSetAlignment('center')">
+                        <img src="./imgs/icons/right.png" onclick="onSetAlignment('left')">
+                        <img src="./imgs/icons/A+.png" onclick="onFontSize(4)">
+                        <img src="./imgs/icons/A-.png" onclick="onFontSize(-4)">
+                        <img src="./imgs/icons/up.png" onclick="onMoveLine(-1)">
+                        <img src="./imgs/icons/down.png" onclick="onMoveLine(1)">
+                        <!-- <button onclick="onFontSize(4)">A+</button>
+                    <button onclick="onFontSize(-4)">A-</button> -->
+                        <!-- <button onclick="onMoveLine(-1)">up</button>
+                    <button onclick="onMoveLine(1)">down</button> -->
+                        <!-- <button onclick="onSetAlignment('right')">L</button>
+                    <button onclick="onSetAlignment('center')">C</button>
+                    <button onclick="onSetAlignment('left')">R</button> -->
+                        <input type="color" id="color" name="color" value="#ffffff"
+                            onchange="onChangeColor(this.value)">
+                    </section>
+                    <input type="text" name="meme-text" oninput="onChangeTxt()" />
+                </section>
+            </section>
+        </section>
+        <section class="gallery">
+            <div class="grid-container">
             </div>
-        </div>
+        </section>
     </section>
 
     <script src="js/memeService.js"></script>
