@@ -5,7 +5,6 @@ function onInit() {
     renderGallery();
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
-    drawMeme()
 }
 
 function drawMeme() {
@@ -21,7 +20,7 @@ function drawMeme() {
         const align = line.align;
         const color = line.color;
 
-        drawText(txt, 250, y, fontSize, fontFamily, align, color);
+        drawText(txt, gCanvas.width / 2, y, fontSize, fontFamily, align, color);
     });
 }
 
@@ -83,7 +82,7 @@ function onSwitchLine() {
 }
 
 function onAddLine() {
-    addLine();
+    addLine(gCanvas.width, gCanvas.height);
     drawMeme();
     document.querySelector('[name=meme-text]').value = '';
 }
@@ -128,10 +127,26 @@ function renderGallery() {
 
 function showGallery() {
     document.querySelector('.editor').style.display = 'none';
-    document.querySelector('.gallery').style.display = 'block';    
+    document.querySelector('.gallery').style.display = 'block';
+    document.body.classList.remove('menu-open');
 }
 
 function showEditor() {
     document.querySelector('.editor').style.display = 'flex';
-    document.querySelector('.gallery').style.display = 'none'; 
+    document.querySelector('.gallery').style.display = 'none';
+    resizeCanvas();
+    changeLinePos(gCanvas.width, gCanvas.height);
+    drawMeme();
+}
+
+function resizeCanvas() {
+    var elContainer = document.querySelector('.canvas-container');
+    console.log(elContainer);
+    // Note: changing the canvas dimension this way clears the canvas
+    gCanvas.width = elContainer.offsetWidth // show width & height in CSS
+    gCanvas.height = elContainer.offsetHeight
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
 }

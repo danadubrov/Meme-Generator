@@ -11,8 +11,8 @@ var gMeme = {
 
     lines: [
         {
-            txt: 'hav hav',
-            size: 55,
+            txt: 'line1',
+            size: 40,
             align: 'center',
             color: 'white',
             font: 'IMPACT',
@@ -20,8 +20,8 @@ var gMeme = {
             y: 50
         },
         {
-            txt: 'miew',
-            size: 55,
+            txt: 'line2',
+            size: 40,
             align: 'center',
             color: 'white',
             font: 'IMPACT',
@@ -77,15 +77,15 @@ function switchLine() {
     gMeme.selectedLineIdx++;
 }
 
-function addLine() {
+function addLine(width, height) {
     var line = {
         txt: '',
         size: 55,
         align: 'center',
         color: 'white',
         font: 'IMPACT',
-        x: 250,
-        y: 250
+        x: width/2,
+        y: height/2
     };
 
     gMeme.lines.push(line);
@@ -104,6 +104,13 @@ function deleteLine() {
 
 function changeColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
+
+function changeLinePos(width, height) {
+    gMeme.lines[0].x = width / 2;
+
+    gMeme.lines[1].x = width / 2;
+    gMeme.lines[1].y = height - 100;
 }
 
 function createImgs() {

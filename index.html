@@ -17,26 +17,27 @@
                 </div>
                 <nav>
                     <ul class="menu flex clean-list">
+                        <div class="close-btn" onclick="toggleMenu()">✕</div>
                         <li onclick="showGallery()">Gallery</li>
                         <li>About</li>
                     </ul>
                 </nav>
+                <img onclick="toggleMenu()" class="menu-btn" src="imgs/icons/menu.png" alt="">
             </section>
         </header>
         <section class="editor" style="display: none">
-            <div class="canvas-container flex">
-                <canvas id="my-canvas" height="500" width="500"></canvas>
-            </div>
-            <section class="editor-container flex" >
+            <section class="meme-container flex">
+                <div class="canvas-container">
+                    <canvas id="my-canvas" height="500" width="500"></canvas>
+                </div>
+            </section>
+            <section class="control-box-container flex">
                 <section class="title flex">
                     <h2>Edit Text Lines</h2>
                     <section class="icons">
-                        <img src="./imgs/icons/switch.png" onclick="onSwitchLine()">
-                        <img src="./imgs/icons/add.png" onclick="onAddLine()">
-                        <img src="./imgs/icons/delete.png" onclick="onDeleteLine()">
-                        <!-- <button onclick="onSwitchLine()">Switch Line</button>
-                    <button onclick="onAddLine()">Add line</button>
-                    <button onclick="onDeleteLine()">Delete line</button> -->
+                        <img src="imgs/icons/switch.png" onclick="onSwitchLine()">
+                        <img src="imgs/icons/add.png" onclick="onAddLine()">
+                        <img src="imgs/icons/delete.png" onclick="onDeleteLine()">
                     </section>
                 </section>
                 <section class="control-box flex">
@@ -46,20 +47,13 @@
                             <option value="Comic Sans MS">Comic Sans MS</option>
                             <option value="Arial Black">Arial Black</option>
                         </select>
-                        <img src="./imgs/icons/left.png" onclick="onSetAlignment('right')">
-                        <img src="./imgs/icons/center.png" onclick="onSetAlignment('center')">
-                        <img src="./imgs/icons/right.png" onclick="onSetAlignment('left')">
-                        <img src="./imgs/icons/A+.png" onclick="onFontSize(4)">
-                        <img src="./imgs/icons/A-.png" onclick="onFontSize(-4)">
-                        <img src="./imgs/icons/up.png" onclick="onMoveLine(-1)">
-                        <img src="./imgs/icons/down.png" onclick="onMoveLine(1)">
-                        <!-- <button onclick="onFontSize(4)">A+</button>
-                    <button onclick="onFontSize(-4)">A-</button> -->
-                        <!-- <button onclick="onMoveLine(-1)">up</button>
-                    <button onclick="onMoveLine(1)">down</button> -->
-                        <!-- <button onclick="onSetAlignment('right')">L</button>
-                    <button onclick="onSetAlignment('center')">C</button>
-                    <button onclick="onSetAlignment('left')">R</button> -->
+                        <img src="imgs/icons/left.png" onclick="onSetAlignment('right')">
+                        <img src="imgs/icons/center.png" onclick="onSetAlignment('center')">
+                        <img src="imgs/icons/right.png" onclick="onSetAlignment('left')">
+                        <img src="imgs/icons/A+.png" onclick="onFontSize(4)">
+                        <img src="imgs/icons/A-.png" onclick="onFontSize(-4)">
+                        <img src="imgs/icons/up.png" onclick="onMoveLine(-1)">
+                        <img src="imgs/icons/down.png" onclick="onMoveLine(1)">
                         <input type="color" id="color" name="color" value="#ffffff"
                             onchange="onChangeColor(this.value)">
                     </section>
