@@ -68,6 +68,9 @@ h1, h2, h3, h4, h5, h6 {
     color: #FF9826;
 }
 
+.header-container .menu li.active {
+    color:  #FF9826!important;
+}
 
 .header-container .logo img{
     height: 32px;
@@ -79,6 +82,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .control-box-container{
     padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
     background-color: #F8F8F8;
     width: 550px;
     flex-direction: column;
@@ -88,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .control-box-container .title {
-    width: 440px;
+    width: 100%;
     justify-content: space-between;
     margin-bottom: 20px;
     align-items: center;
@@ -103,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .control-box-container .control-box {
-    width: 440px;
+    width: 100%;
     flex-direction: column;
     background-color: white;
     border: 1px #EBEBEB solid;
@@ -129,6 +134,13 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 10px;
 }
 
+.control-box-container .control-box input[name="color"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
 .control-box-container .control-box select {
     color: #989898;
     font-size: 12px;
@@ -137,6 +149,22 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 8px;
     padding-top: 4px;
     padding-bottom: 4px;
+}
+
+.control-box-container .btns {
+    position: absolute;
+    right: 30px;
+    bottom: 52px;
+}
+
+.control-box-container .download-btn {
+    background-color: #FF9826;
+    border-radius: 35px;
+    color: white;
+    padding: 17px 34px;
+    border: none;
+    font-family: 'roboto';
+    cursor: pointer;
 }
 
 .meme-container {
@@ -157,20 +185,37 @@ canvas {
     height: 500px;
 }
 
-.grid-container {
+.gallery {
+    flex-direction: column;
+}
+
+.gallery .grid-container {
     margin: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: minmax(200px, 1fr);
     grid-gap: 20px;
 }
 
-.grid-container img{
+.gallery .grid-container img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.gallery .search {
+    margin: 20px;
+    padding: 10px 24px;
+    border-radius: 80px;
+    border: 1px #E5E5E5 solid;
+    outline: none;
+}
+
+.gallery .msg {
+    margin-top: 20px;
+    color: #727272;
 }
 
 .clean-list {
@@ -222,6 +267,11 @@ canvas {
     }
     .control-box-container .control-box {
         margin-bottom: 20px;
+    }
+
+    .control-box-container .btns {
+        position: unset;
+        margin-bottom: 35px;
     }
 
     .canvas-container {

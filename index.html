@@ -18,7 +18,8 @@
                 <nav>
                     <ul class="menu flex clean-list">
                         <div class="close-btn" onclick="toggleMenu()">✕</div>
-                        <li onclick="showGallery()">Gallery</li>
+                        <li class="nav-memes" onclick="showMemes()">Memes</li>
+                        <li class="nav-gallery active" onclick="showGallery()">Gallery</li>
                         <li>About</li>
                     </ul>
                 </nav>
@@ -54,19 +55,37 @@
                         <img src="imgs/icons/A-.png" onclick="onFontSize(-4)">
                         <img src="imgs/icons/up.png" onclick="onMoveLine(-1)">
                         <img src="imgs/icons/down.png" onclick="onMoveLine(1)">
-                        <input type="color" id="color" name="color" value="#ffffff"
-                            onchange="onChangeColor(this.value)">
+                        <div>
+                            <input type="color" id="color" name="color" value="#ffffff"
+                                onchange="onChangeColor(this.value)">
+                            <label for="color"><img src="imgs/icons/color.png" alt=""></label>
+                        </div>
                     </section>
                     <input type="text" name="meme-text" oninput="onChangeTxt()" />
                 </section>
+                <section class="btns">
+                    <a href="#" onclick="downloadCanvas(this)" download=""><button
+                            class="download-btn">Download</button></a>
+                    <button class="download-btn" onclick="onSaveMeme()">Save</button>
+                </section>
             </section>
         </section>
-        <section class="gallery">
-            <div class="grid-container">
+        <section class="gallery flex">
+            <input class="search" list="browsers" type="text" placeholder="search" oninput="onSetFilter(this.value)">
+            <datalist id="browsers">
+                <option value="animal">
+                <option value="cute">
+                <option value="funny">
+                <option value="man">
+            </datalist>
+            <h3 class="msg" style="display: none">no saved memes</h3>
+            <div id="gallery-container" class="grid-container">
             </div>
         </section>
     </section>
 
+    <script src="js/utilService.js"></script>
+    <script src="js/storageService.js"></script>
     <script src="js/memeService.js"></script>
     <script src="js/memeController.js"></script>
 </body>
