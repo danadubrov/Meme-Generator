@@ -337,7 +337,7 @@ canvas {
     }
 
     .header-container .menu li.active {
-        color: white;
+        color: white!important;
         font-weight: 500;
     }
 }
