@@ -335,5 +335,10 @@ canvas {
     body.menu-open .header-container .menu {
         transform: translateX(0);
     }
+
+    .header-container .menu li.active {
+        color: white;
+        font-weight: 500;
+    }
 }
 
