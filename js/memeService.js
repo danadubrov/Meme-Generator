@@ -99,8 +99,13 @@ function changeFontFamily(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
 }
 
-function moveLine(dif) {
-    gMeme.lines[gMeme.selectedLineIdx].y += dif;
+// function moveLine(dif) {
+//     gMeme.lines[gMeme.selectedLineIdx].y += dif;
+// }
+
+function moveLine(disX,disY) {
+    gMeme.lines[gMeme.selectedLineIdx].x += disX;
+    gMeme.lines[gMeme.selectedLineIdx].y += disY;
 }
 
 
@@ -109,12 +114,15 @@ function setAlignment(align) {
 }
 
 
-function switchLine() {
-    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
-        gMeme.selectedLineIdx = 0;
-        return;
-    }
-    gMeme.selectedLineIdx++;
+function switchLine(idx) {
+    gMeme.selectedLineIdx = idx;
+    return;
+
+    // if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+    //     gMeme.selectedLineIdx = 0;
+    //     return;
+    // }
+    // gMeme.selectedLineIdx++;
 }
 
 function addLine(width, height) {

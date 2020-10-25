@@ -29,7 +29,7 @@
         <section class="editor" style="display: none">
             <section class="meme-container flex">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="500" width="500"></canvas>
+                    <canvas id="my-canvas" height="500" width="500" onmousedown="onSelectLine(event)" onmousemove="onDrag(event)" onmouseup="onStopDrag()"></canvas>
                 </div>
             </section>
             <section class="control-box-container flex">

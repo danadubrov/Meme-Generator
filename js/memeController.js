@@ -3,6 +3,10 @@
 var gCanvas;
 var gCtx;
 
+var gStartMouseX;
+var gStartMouseY;
+var gIsDrag = false;
+
 function onInit() {
     renderGallery();
     gCanvas = document.querySelector('#my-canvas');
@@ -17,12 +21,13 @@ function drawMeme() {
     meme.lines.forEach(line => {
         const txt = line.txt;
         const y = line.y;
+        const x = line.x;
         const fontSize = line.size;
         const fontFamily = line.font;
         const align = line.align;
         const color = line.color;
 
-        drawText(txt, gCanvas.width / 2, y, fontSize, fontFamily, align, color);
+        drawText(txt, x, y, fontSize, fontFamily, align, color);
     });
 }
 
@@ -213,4 +218,46 @@ function onSaveMeme() {
     var imgContent = gCanvas.toDataURL('image/jpeg');
     saveMeme(imgContent);
     showMemes();
+}
+
+function onSelectLine(ev) {
+    const x = ev.offsetX;
+    const y = ev.offsetY;
+    const meme = getMeme();
+
+    const lineIdx = meme.lines.findIndex(line => {
+        return (x > (line.x - gCtx.measureText(line.txt).width / 2) && x < (line.x + gCtx.measureText(line.txt).width / 2) && y > line.y && y < (line.y + line.size))
+    })
+    console.log(lineIdx);
+
+    if (lineIdx >= 0) {
+        gStartMouseX = ev.offsetX;
+        gStartMouseY = ev.offsetY;
+        gIsDrag = true;
+        switchLine(lineIdx);
+        drawMeme();
+        showLineFocus();
+    };
+}
+
+function onDrag(ev){
+    if(!gIsDrag) return;
+    console.log('dragging')
+
+    var currMouseX = ev.offsetX;
+    var currMouseY = ev.offsetY;
+
+    var disX = currMouseX - gStartMouseX;
+    var disY = currMouseY - gStartMouseY;
+
+    moveLine(disX,disY);
+    drawMeme();
+    showLineFocus();
+
+    gStartMouseX = currMouseX;
+    gStartMouseY = currMouseY;
+}
+
+function onStopDrag(){
+    gIsDrag = false;
 }
