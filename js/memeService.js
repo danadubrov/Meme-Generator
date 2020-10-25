@@ -3,29 +3,30 @@
 const STORAGE_KEY = 'MEMES';
 
 var gImgs = [
-    { id: 'img1', url: 'imgs/img1.jpg', keywords: ['man', 'trump'] },
+    { id: 'img1', url: 'imgs/img1.jpg', keywords: ['man', 'trump', 'politician'] },
     { id: 'img2', url: 'imgs/img2.jpg', keywords: ['animal', 'cute', 'dog'] },
     { id: 'img3', url: 'imgs/img3.jpg', keywords: ['animal', 'cute', 'baby', 'sleep', 'dog'] },
-    { id: 'img4', url: 'imgs/img4.jpg', keywords: ['animal', 'cute', 'sleep'] },
+    { id: 'img4', url: 'imgs/img4.jpg', keywords: ['animal', 'cute', 'sleep', 'cat'] },
     { id: 'img5', url: 'imgs/img5.jpg', keywords: ['baby'] },
     { id: 'img6', url: 'imgs/img6.jpg', keywords: ['man', 'obama'] },
     { id: 'img7', url: 'imgs/img7.jpg', keywords: ['baby', 'funny', 'cute'] },
     { id: 'img8', url: 'imgs/img8.jpg', keywords: ['man', 'tell me more'] },
     { id: 'img9', url: 'imgs/img9.jpg', keywords: ['baby', 'evil', 'funny'] },
-    { id: 'img10', url: 'imgs/img10.jpg', keywords: ['man', 'funny'] },
+    { id: 'img10', url: 'imgs/img10.jpg', keywords: ['man', 'funny', 'politician'] },
     { id: 'img11', url: 'imgs/img11.jpg', keywords: ['man'] },
     { id: 'img12', url: 'imgs/img12.jpg', keywords: ['man'] },
     { id: 'img13', url: 'imgs/img13.jpg', keywords: ['man', 'cheers'] },
-    { id: 'img14', url: 'imgs/img14.jpg', keywords: ['man', 'what if i told'] },
-    { id: 'img15', url: 'imgs/img15.jpg', keywords: ['man', 'one does not simply'] },
-    { id: 'img16', url: 'imgs/img16.jpg', keywords: ['man'] },
-    { id: 'img17', url: 'imgs/img17.jpg', keywords: ['man', 'putin'] },
-    { id: 'img18', url: 'imgs/img18.jpg', keywords: ['toy story'] },
+    { id: 'img14', url: 'imgs/img14.jpg', keywords: ['man', 'what if i told', 'movies'] },
+    { id: 'img15', url: 'imgs/img15.jpg', keywords: ['man', 'one does not simply', 'movies'] },
+    { id: 'img16', url: 'imgs/img16.jpg', keywords: ['man', 'movies'] },
+    { id: 'img17', url: 'imgs/img17.jpg', keywords: ['man', 'putin', 'politician'] },
+    { id: 'img18', url: 'imgs/img18.jpg', keywords: ['toy story', 'movies'] },
 ];
 
 var gMeme = {
     selectedImgId: 'img2',
     selectedLineIdx: 1,
+    selectedStickerIdx: -1,
 
     lines: [
         {
@@ -33,6 +34,7 @@ var gMeme = {
             size: 40,
             align: 'center',
             color: 'white',
+            stroke: 'black',
             font: 'IMPACT',
             x: 250,
             y: 50
@@ -42,20 +44,68 @@ var gMeme = {
             size: 40,
             align: 'center',
             color: 'white',
+            stroke: 'black',
             font: 'IMPACT',
             x: 250,
             y: 400
         }
-    ]
+    ],
+
+    stickers: []
 }
 
 var gSavedMemes = [];
+
+var gKeywords = [
+    {
+        word: 'animal',
+        count: 20
+    },
+    {
+        word: 'man',
+        count: 10
+    },
+    {
+        word: 'funny',
+        count: 22
+    },
+    {
+        word: 'baby',
+        count: 15
+    },
+    {
+        word: 'cute',
+        count: 8
+    },
+    {
+        word: 'dog',
+        count: 10
+    },
+    {
+        word: 'cat',
+        count: 12
+    },
+    {
+        word: 'politician',
+        count: 6
+    },
+    {
+        word: 'movies',
+        count: 17
+    }
+]
 
 var gFilterBy = ''
 
 
 function setFilter(filterBy) {
     gFilterBy = filterBy;
+    updateKeywords(filterBy);
+}
+
+function updateKeywords(filterBy) {
+    var keyword = gKeywords.find(keyword => keyword.word === filterBy);
+    if(keyword) keyword.count++;
 }
 
 function getImgs() {
@@ -103,7 +153,7 @@ function changeFontFamily(font) {
 //     gMeme.lines[gMeme.selectedLineIdx].y += dif;
 // }
 
-function moveLine(disX,disY) {
+function moveLine(disX, disY) {
     gMeme.lines[gMeme.selectedLineIdx].x += disX;
     gMeme.lines[gMeme.selectedLineIdx].y += disY;
 }
@@ -117,12 +167,6 @@ function setAlignment(align) {
 function switchLine(idx) {
     gMeme.selectedLineIdx = idx;
     return;
-
-    // if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
-    //     gMeme.selectedLineIdx = 0;
-    //     return;
-    // }
-    // gMeme.selectedLineIdx++;
 }
 
 function addLine(width, height) {
@@ -165,4 +209,28 @@ function changeLinePos(width, height) {
 function saveMeme(imgContent) {
     gSavedMemes.push(imgContent);
     saveToStorage(STORAGE_KEY, gSavedMemes);
+}
+
+function addSticker(el, x, y ,size) {
+    const sticker = {
+        el,
+        x,
+        y,
+        size
+    }
+    gMeme.stickers.push(sticker);
+    console.log(gMeme.stickers)
+}
+
+function selectSticker(stickerIdx) {
+    gMeme.selectedStickerIdx = stickerIdx;
+}
+
+function moveSticker(disX, disY) {
+    gMeme.stickers[gMeme.selectedStickerIdx].x += disX;
+    gMeme.stickers[gMeme.selectedStickerIdx].y += disY;
+}
+
+function getKeywords() {
+    return gKeywords;
 }

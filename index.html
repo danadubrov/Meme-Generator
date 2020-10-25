@@ -29,14 +29,14 @@
         <section class="editor" style="display: none">
             <section class="meme-container flex">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="500" width="500" onmousedown="onSelectLine(event)" onmousemove="onDrag(event)" onmouseup="onStopDrag()"></canvas>
+                    <canvas id="my-canvas" height="500" width="500" onmousedown="onSelectLine(event)"
+                        onmousemove="onDrag(event)" onmouseup="onStopDrag()"></canvas>
                 </div>
             </section>
             <section class="control-box-container flex">
                 <section class="title flex">
                     <h2>Edit Text Lines</h2>
                     <section class="icons">
-                        <img src="imgs/icons/switch.png" onclick="onSwitchLine()">
                         <img src="imgs/icons/add.png" onclick="onAddLine()">
                         <img src="imgs/icons/delete.png" onclick="onDeleteLine()">
                     </section>
@@ -53,8 +53,6 @@
                         <img src="imgs/icons/right.png" onclick="onSetAlignment('left')">
                         <img src="imgs/icons/A+.png" onclick="onFontSize(4)">
                         <img src="imgs/icons/A-.png" onclick="onFontSize(-4)">
-                        <img src="imgs/icons/up.png" onclick="onMoveLine(-1)">
-                        <img src="imgs/icons/down.png" onclick="onMoveLine(1)">
                         <div>
                             <input type="color" id="color" name="color" value="#ffffff"
                                 onchange="onChangeColor(this.value)">
@@ -62,6 +60,12 @@
                         </div>
                     </section>
                     <input type="text" name="meme-text" oninput="onChangeTxt()" />
+                </section>
+                <section class="stickers">
+                    <img onclick="onDrawSticker(this)" src="imgs/stickers/gift.png" alt="">
+                    <img onclick="onDrawSticker(this)" src="imgs/stickers/apple.png" alt="">
+                    <img onclick="onDrawSticker(this)" src="imgs/stickers/flower.png" alt="">
+                    <img onclick="onDrawSticker(this)" src="imgs/stickers/party.png" alt="">
                 </section>
                 <section class="btns">
                     <a href="#" onclick="downloadCanvas(this)" download=""><button
@@ -78,6 +82,7 @@
                 <option value="funny">
                 <option value="man">
             </datalist>
+            <div class="keywords"></div>
             <h3 class="msg" style="display: none">no saved memes</h3>
             <div id="gallery-container" class="grid-container">
             </div>

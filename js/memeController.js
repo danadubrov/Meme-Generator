@@ -1,17 +1,28 @@
 'use strict';
 
+const STICKER_SIZE = 80;
 var gCanvas;
 var gCtx;
 
 var gStartMouseX;
 var gStartMouseY;
-var gIsDrag = false;
+var gDrag = {
+    isDrag: false,
+    isLine: false,
+    isSticker: false
+}
 
 function onInit() {
     renderGallery();
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     loadSavesMemes();
+    renderKeywords();
+
+    gCanvas.addEventListener("touchmove", ev => {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+    }, true);
 }
 
 function drawMeme() {
@@ -26,9 +37,14 @@ function drawMeme() {
         const fontFamily = line.font;
         const align = line.align;
         const color = line.color;
+        const stroke = line.stroke;
 
-        drawText(txt, x, y, fontSize, fontFamily, align, color);
+        drawText(txt, x, y, fontSize, fontFamily, align, color, stroke);
     });
+
+    meme.stickers.forEach(sticker => {
+        gCtx.drawImage(sticker.el, sticker.x, sticker.y, STICKER_SIZE, STICKER_SIZE);
+    })
 }
 
 function drawImg() {
@@ -38,9 +54,9 @@ function drawImg() {
     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawText(txt, x, y, fontSize, fontFamily, align, color) {
+function drawText(txt, x, y, fontSize, fontFamily, align, color, stroke) {
     gCtx.textBaseline = "top";
-    gCtx.strokeStyle = 'black';
+    gCtx.strokeStyle = stroke;
     gCtx.fillStyle = color;
     gCtx.lineWidth = '2';
     gCtx.font = `${fontSize}px ${fontFamily}`;
@@ -141,6 +157,7 @@ function renderGallery() {
 
 function renderMemes() {
     showGallery();
+    document.querySelector('.keywords').style.display = 'none';
     const memes = getSavedMemes();
     if (!memes[0]) {
         document.querySelector('.msg').style.display = 'block';
@@ -160,6 +177,7 @@ function renderMemes() {
 function showGallery() {
     setFilter('');
     document.querySelector('.msg').style.display = 'none';
+    document.querySelector('.keywords').style.display = 'block';
     renderGallery();
     document.querySelector('.search').style.display = 'block';
     document.querySelector('.editor').style.display = 'none';
@@ -211,6 +229,7 @@ function downloadCanvas(elLink) {
 function onSetFilter(filterBy) {
     setFilter(filterBy);
     renderGallery();
+    renderKeywords();
 }
 
 function onSaveMeme() {
@@ -228,20 +247,30 @@ function onSelectLine(ev) {
     const lineIdx = meme.lines.findIndex(line => {
         return (x > (line.x - gCtx.measureText(line.txt).width / 2) && x < (line.x + gCtx.measureText(line.txt).width / 2) && y > line.y && y < (line.y + line.size))
     })
-    console.log(lineIdx);
 
-    if (lineIdx >= 0) {
+    const stickerIdx = meme.stickers.findIndex(sticker => {
+        return (x > sticker.x && x < (sticker.x + STICKER_SIZE) && y > sticker.y && y < (sticker.y + STICKER_SIZE))
+    })
+    console.log(stickerIdx)
+    if (lineIdx >= 0 || stickerIdx >= 0) {
         gStartMouseX = ev.offsetX;
         gStartMouseY = ev.offsetY;
-        gIsDrag = true;
-        switchLine(lineIdx);
+        gDrag.isDrag = true;
+        if (lineIdx >= 0) {
+            gDrag.isLine = true;
+            switchLine(lineIdx);
+        }
+        if (stickerIdx >= 0) {
+            gDrag.isSticker = true;
+            selectSticker(stickerIdx);
+        }
         drawMeme();
         showLineFocus();
-    };
+    }
 }
 
-function onDrag(ev){
-    if(!gIsDrag) return;
+function onDrag(ev) {
+    if (!gDrag.isDrag) return;
     console.log('dragging')
 
     var currMouseX = ev.offsetX;
@@ -250,7 +279,8 @@ function onDrag(ev){
     var disX = currMouseX - gStartMouseX;
     var disY = currMouseY - gStartMouseY;
 
-    moveLine(disX,disY);
+    if (gDrag.isSticker) moveSticker(disX, disY);
+    if (gDrag.isLine) moveLine(disX, disY);
     drawMeme();
     showLineFocus();
 
@@ -258,6 +288,25 @@ function onDrag(ev){
     gStartMouseY = currMouseY;
 }
 
-function onStopDrag(){
-    gIsDrag = false;
+function onStopDrag() {
+    gDrag.isDrag = false;
+    gDrag.isLine = false;
+    gDrag.isSticker = false;
+}
+
+function onDrawSticker(el) {
+    gCtx.drawImage(el, gCanvas.width / 2, gCanvas.height / 2, STICKER_SIZE, STICKER_SIZE);
+    addSticker(el, gCanvas.width / 2, gCanvas.height / 2, STICKER_SIZE);
+    console.log(el.src)
+}
+
+function renderKeywords() {
+    const keywords = getKeywords();
+    const strHTMLs = keywords.map(keyword => {
+        var size = (keyword.count > 25) ? 60 : keyword.count * 3;
+        return `
+            <span style="font-size:${size}px;" onclick="onSetFilter('${keyword.word}')"> ${keyword.word}  </span>
+    `
+    });
+    document.querySelector('.keywords').innerHTML = strHTMLs.join('');
 }
