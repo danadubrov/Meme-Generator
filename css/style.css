@@ -377,11 +377,19 @@ canvas {
         font-weight: 300;
     }
 
+    .header-container .menu li:not(:last-child) {
+        margin-right: 20px;
+    }
+
     .header-container .menu li:hover {
         font-weight: 500;
         color: white;
     }
-
+    
+    .header-container .menu li.active {
+        color: white!important;
+        font-weight: 500;
+    }
     .header-container .close-btn{
         display: inline;
     }
@@ -390,17 +398,9 @@ canvas {
         transform: translateX(0);
     }
 
-    .header-container .menu li.active {
-        color: white!important;
-        font-weight: 500;
-    }
-
     .control-box-container .stickers img {
         height: 100px;
      }
 
-     .gallery .keywords {
-         display: none;
-     }
 }
 
